@@ -7,58 +7,52 @@ class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: ''
+            email: '',
+            password: '',
         };
+        this.initBinds();
+    }
+    
+    initBinds() {
+        this.signIn = this.signIn.bind(this);
+        this.goToSignUp = this.goToSignUp.bind(this);
     }
 
-    
-    // componentWillMount() {
-    //     firebase.initializeApp({
-    //         apiKey: 'AIzaSyABVaCF2l8XTtymRpFttfx6LBmqvMRPzLw',
-    //         authDomain: 'authentication-a5265.firebaseapp.com',
-    //         databaseURL: 'https://authentication-a5265.firebaseio.com',
-    //         projectId: 'authentication-a5265',
-    //         storageBucket: 'authentication-a5265.appspot.com',
-    //         messagingSenderId: '903384301428'
-    //     });
-    // }
-
-    signIn = this.signIn.bind(this);
+    signIn(email, password) {
+        firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((firebaseUser) => {
+            console.log('process login firebaseUser', firebaseUser);
+        }).catch((error) => {
+            console.log('process login error', error);
+        });      
+    }
 
     goToSignUp() {
-        console.log('goToSignUp ');
         this.props.navigation.navigate('SignUp');
     }
 
-    signIn() {
-        console.log('signIn');
-        console.log('this.state.email', this.state.email);
-        // firebase.auth().signInWithEmailAndPassword('man.alaniz', '12345678');
-        // firebase.auth().signInWithEmailAndPassword('man.alaniz@gmail.com', '12345678');
-        firebase.auth().createUserWithEmailAndPassword('ma.alaniz@gmail.com', '12345678');
-    }
-
     render() {
-        // const { navigate } = this.props.navigation;
         return (
             <View>
                 <TextInput 
                     style={styles.input} 
                     autoCapitalize="none"
-                    value={this.state.email}
+                    // value={this.state.email}
                     onChangeText={email => this.setState({ email })}
                     onSubmitEditing={() => this.passwordInput.focus()} 
                     autoCorrect={false} 
-                    keyboardType='email-address' 
-                    returnKeyType="next" 
-                    placeholder='Email' 
+                    keyboardType='email-address'
+                    returnKeyType='next'
+                    placeholder='Email'
                     placeholderTextColor='rgba(225,225,225,0.7)'
                 />
                 
                 <TextInput
                     style={styles.input}   
-                    returnKeyType="go" 
+                    // value={this.state.password}
+                    onChangeText={password => this.setState({ password })}
                     ref={(input)=> this.passwordInput = input} 
+                    returnKeyType='go'
                     placeholder='Password' 
                     placeholderTextColor='rgba(225,225,225,0.7)' 
                     secureTextEntry
@@ -66,7 +60,7 @@ class LoginForm extends Component {
 
                 <TouchableOpacity 
                     style={styles.buttonContainer} 
-                    onPress={this.signIn}
+                    onPress={() => this.signIn(this.state.email, this.state.password)}
                 >
                     <Text
                         style={styles.buttonText} 
@@ -77,7 +71,7 @@ class LoginForm extends Component {
                 <View style={styles.loginContainer}>
                     <Text 
                         style={styles.signUpButton}
-                        onPress={() => this.props.navigation.navigate('SignUp')}
+                        onPress={this.goToSignUp}
                     >
                         Sign up
                     </Text>
