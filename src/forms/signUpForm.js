@@ -3,25 +3,14 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 // import { withNavigation } from 'react-navigation';
 import firebase from '../firebase.js';
 
-class LoginForm extends Component {
+class SignUpForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: ''
+            email: '',
+            password: '',
         };
     }
-
-    
-    // componentWillMount() {
-    //     firebase.initializeApp({
-    //         apiKey: 'AIzaSyABVaCF2l8XTtymRpFttfx6LBmqvMRPzLw',
-    //         authDomain: 'authentication-a5265.firebaseapp.com',
-    //         databaseURL: 'https://authentication-a5265.firebaseio.com',
-    //         projectId: 'authentication-a5265',
-    //         storageBucket: 'authentication-a5265.appspot.com',
-    //         messagingSenderId: '903384301428'
-    //     });
-    // }
 
     signIn = this.signIn.bind(this);
 
@@ -31,11 +20,7 @@ class LoginForm extends Component {
     }
 
     signIn() {
-        console.log('signIn');
-        console.log('this.state.email', this.state.email);
-        // firebase.auth().signInWithEmailAndPassword('man.alaniz', '12345678');
-        // firebase.auth().signInWithEmailAndPassword('man.alaniz@gmail.com', '12345678');
-        firebase.auth().createUserWithEmailAndPassword('ma.alaniz@gmail.com', '12345678');
+        firebase.auth().createUserWithEmailAndPassword('alexx2@gmail.com', '12345678');
     }
 
     render() {
@@ -57,7 +42,9 @@ class LoginForm extends Component {
                 
                 <TextInput
                     style={styles.input}   
-                    returnKeyType="go" 
+                    returnKeyType="go"
+                    value={this.state.password}
+                    onChangeText={password => this.setState({ password })} 
                     ref={(input)=> this.passwordInput = input} 
                     placeholder='Password' 
                     placeholderTextColor='rgba(225,225,225,0.7)' 
@@ -71,15 +58,15 @@ class LoginForm extends Component {
                     <Text
                         style={styles.buttonText} 
                     >
-                        LOGIN
+                        Sign up
                     </Text>
                 </TouchableOpacity> 
                 <View style={styles.loginContainer}>
                     <Text 
                         style={styles.signUpButton}
-                        onPress={() => this.props.navigation.navigate('SignUp')}
+                        onPress={null}
                     >
-                        Sign up
+                        Log in
                     </Text>
                 </View> 
             </View>
@@ -87,7 +74,7 @@ class LoginForm extends Component {
     }
 }
 
-export default LoginForm;
+export default SignUpForm;
 
 const styles = StyleSheet.create({
     formContainer: {

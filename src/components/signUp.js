@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Image, Text, View, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { Image, View, StyleSheet, KeyboardAvoidingView } from 'react-native';
 // import styles from '../styles/styles.js';
-import LoginForm from '../forms/loginForm.js';
+import SignUpForm from '../forms/signUpForm.js';
 
-class Login extends Component {
+class SignUp extends Component {
 
     render() {
         return (
@@ -15,13 +15,8 @@ class Login extends Component {
                         source={{ uri: 'https://itbaja.org/wp-content/uploads/gravity_forms/1-dcc4dc85146084a2e975373dab5bab0f/2016/04/arkus2.png' }}
                     />
                 </View>
-                <View style={styles.loginContainer}>
-                    <Text style={styles.title}>
-                        Sign Up
-                    </Text>
-                </View>
                 <View style={[styles.formContainer]}>
-                    {/* <LoginForm /> */}
+                    <SignUpForm />
                 </View>
             </KeyboardAvoidingView>
         );
@@ -74,4 +69,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Login;
+export default SignUp;

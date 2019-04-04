@@ -18,17 +18,6 @@ class App extends React.Component {
         super(props);
         this.state = {};
     }
-
-    componentWillMount() {
-        firebase.initializeApp({
-            apikey: 'AIzaSyABVaCF2l8XTtymRpFttfx6LBmqvMRPzLw',
-            authDomain: ' authentication-a5265.firebaseapp.com ',
-            databaseURL: ' https://authentication-a5265.firebaseio.com ',
-            projectId: ' authentication-a5265 ',
-            storageBucket: ' authentication-a5265.appspot.com ',
-            messagingSenderId: '903384301428' 
-        });
-    }
     
     render() {
         return (
