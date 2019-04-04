@@ -10,27 +10,35 @@ class SignUpForm extends Component {
             email: '',
             password: '',
         };
+        this.initBindings();
     }
 
-    signIn = this.signIn.bind(this);
+    initBindings() {
+        this.signUp = this.signUp.bind(this);
+        this.goToSignUp = this.goToSignUp.bind(this);
+    }
 
     goToSignUp() {
-        console.log('goToSignUp ');
-        this.props.navigation.navigate('SignUp');
+        // this.props.navigation.navigate('SignUp');
     }
 
-    signIn() {
-        firebase.auth().createUserWithEmailAndPassword('alexx2@gmail.com', '12345678');
+    signUp(email, password) {
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then((firebaseUser) => {
+            console.log('process login firebaseUser', firebaseUser);
+            // this.hideAlert();
+        }).catch((error) => {
+            console.log('process login error', error);
+            // this.hideAlert();
+        });
     }
 
     render() {
-        // const { navigate } = this.props.navigation;
         return (
             <View>
                 <TextInput 
                     style={styles.input} 
                     autoCapitalize="none"
-                    value={this.state.email}
                     onChangeText={email => this.setState({ email })}
                     onSubmitEditing={() => this.passwordInput.focus()} 
                     autoCorrect={false} 
@@ -43,7 +51,6 @@ class SignUpForm extends Component {
                 <TextInput
                     style={styles.input}   
                     returnKeyType="go"
-                    value={this.state.password}
                     onChangeText={password => this.setState({ password })} 
                     ref={(input)=> this.passwordInput = input} 
                     placeholder='Password' 
@@ -53,7 +60,7 @@ class SignUpForm extends Component {
 
                 <TouchableOpacity 
                     style={styles.buttonContainer} 
-                    onPress={this.signIn}
+                    onPress={this.signUp(this.state.email, this.state.password)}
                 >
                     <Text
                         style={styles.buttonText} 

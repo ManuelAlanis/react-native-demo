@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 // import { withNavigation } from 'react-navigation';
 import firebase from '../firebase.js';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 class LoginForm extends Component {
     constructor(props) {
@@ -9,6 +10,11 @@ class LoginForm extends Component {
         this.state = {
             email: '',
             password: '',
+            showAlert: false,
+            message: '',
+            confirmText: '',
+            showConfirmButton: false,
+            isLoginDisabled: false,
         };
         this.initBinds();
     }
@@ -16,15 +22,51 @@ class LoginForm extends Component {
     initBinds() {
         this.signIn = this.signIn.bind(this);
         this.goToSignUp = this.goToSignUp.bind(this);
+        this.showAlert = this.showAlert.bind(this);
+        this.hideAlert = this.hideAlert.bind(this);
     }
 
-    signIn(email, password) {
-        firebase.auth().signInWithEmailAndPassword(email, password)
+    async showAlert(callback, showProgress, title, message, confirmText, showConfirmButton) {
+        this.setState({
+            showAlert: true,
+            showProgress,
+            title,
+            message,
+            confirmText,
+            showConfirmButton,
+        }, () => {
+            if (callback) {
+                callback();
+            }
+        });
+    }
+
+    async hideAlert(callback) {
+        this.setState({
+            showAlert: false
+        }, () => {
+            if (callback) {
+                callback();
+            }
+        });
+    }
+
+    async signIn(email, password) {
+        // this.showAlert(null, true);
+        this.setState({
+            isLoginDisabled: true
+        });
+        await firebase.auth().signInWithEmailAndPassword(email, password)
         .then((firebaseUser) => {
             console.log('process login firebaseUser', firebaseUser);
+            this.showAlert(null, true, 'Loggin in', 'Wait while we validate your credentials', 'OK', false);
         }).catch((error) => {
             console.log('process login error', error);
-        });      
+            this.setState({
+                isLoginDisabled: false
+            });
+            this.showAlert(null, false, 'An error has ocurred', error.message, 'OK', true);
+        });
     }
 
     goToSignUp() {
@@ -32,12 +74,12 @@ class LoginForm extends Component {
     }
 
     render() {
+        // const { showAlert, showProgress } = this.state;
         return (
             <View>
                 <TextInput 
                     style={styles.input} 
                     autoCapitalize="none"
-                    // value={this.state.email}
                     onChangeText={email => this.setState({ email })}
                     onSubmitEditing={() => this.passwordInput.focus()} 
                     autoCorrect={false} 
@@ -48,8 +90,7 @@ class LoginForm extends Component {
                 />
                 
                 <TextInput
-                    style={styles.input}   
-                    // value={this.state.password}
+                    style={styles.input}
                     onChangeText={password => this.setState({ password })}
                     ref={(input)=> this.passwordInput = input} 
                     returnKeyType='go'
@@ -59,8 +100,10 @@ class LoginForm extends Component {
                 />
 
                 <TouchableOpacity 
-                    style={styles.buttonContainer} 
+                    style={styles.buttonContainer}
                     onPress={() => this.signIn(this.state.email, this.state.password)}
+                    disabled={this.state.isLoginDisabled}
+                    // activeOpacity={!this.state.isLoginDisabled ? 1 : 0.7}
                 >
                     <Text
                         style={styles.buttonText} 
@@ -75,7 +118,23 @@ class LoginForm extends Component {
                     >
                         Sign up
                     </Text>
-                </View> 
+                </View>
+                <AwesomeAlert
+                    show={this.state.showAlert}
+                    showProgress={this.state.showProgress}
+                    title={this.state.title}
+                    message={this.state.message}
+                    confirmText={this.state.confirmText}
+                    showConfirmButton={this.state.showConfirmButton}
+                    closeOnTouchOutside={false}
+                    confirmButtonColor="#DD6B55"
+                    onCancelPressed={() => {
+                        this.hideAlert();
+                    }}
+                    onConfirmPressed={() => {
+                        this.hideAlert();
+                    }}
+                />
             </View>
         );
     }
