@@ -1,27 +1,46 @@
-// import libraries for making a component
 import React from 'react';
-// import { View } from 'react-native';
-// import { createStackNavigator, createAppContainer } from 'react-navigation';
-// import Header from './header.js';
-// import Login from './login.js';
-// import SignUp from './signUp.js';
-import firebase from 'firebase';
-import AppNavigator from './appNavigator.js';
+import firebase from '../firebase.js/';
+import AppNavigator from './AppNavigator.js';
+import LoginNavigator from './LoginNavigator.js';
+import Splash from '../splash/Splash.js';
 
 class App extends React.Component {
-    // static navigationOptions = ({ navigation }) => {
-    //     return {
-    //         title: navigation.getParam('otherParam', 'A Nested Details Screen'),
-    //     };
-    // };
+    
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            isLoggedIn: null
+        };
     }
     
+    componentWillMount() {
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                console.log('process login success auth');
+                this.setState({
+                    isLoggedIn: true,
+                });
+            } else {
+                console.log('process login error auth');
+                this.setState({
+                    isLoggedIn: false,
+                });
+            }
+        });
+    }
+
     render() {
+        if (this.state.isLoggedIn === null) {
+            return (
+                <Splash />
+            );
+        } else if (this.state.isLoggedIn) {
+            return (
+                <AppNavigator />
+            );
+        }
         return (
-            <AppNavigator />
+            <LoginNavigator />
         );
     }
 }

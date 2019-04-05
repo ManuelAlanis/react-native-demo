@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
 import { Image, View, StyleSheet, KeyboardAvoidingView } from 'react-native';
-// import styles from '../styles/styles.js';
 import LoginForm from '../forms/loginForm.js';
 
 class Login extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {};
-    // }
     render() {
-        const { navigate } = this.props.navigation;
         return (
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
                 <View style={styles.loginContainer}>
-                    <Image 
-                        resizeMode="contain" 
+                    <Image
+                        resizeMode="contain"
                         style={styles.imageLogo}
                         source={{ uri: 'https://itbaja.org/wp-content/uploads/gravity_forms/1-dcc4dc85146084a2e975373dab5bab0f/2016/04/arkus2.png' }}
                     />
                 </View>
-                <View style={[styles.formContainer]}>
+                <View>
                     <LoginForm navigation={this.props.navigation} />
                 </View>
             </KeyboardAvoidingView>
@@ -28,11 +22,6 @@ class Login extends Component {
 }
 
 const styles = StyleSheet.create({
-    formContainer: {
-        // flex: 1,
-        // justifyContent: 'flex-end',
-        // marginBottom: 36
-    },
     loginContainer: {
         justifyContent: 'center',
         alignItems: 'center',

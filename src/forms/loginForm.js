@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-// import { withNavigation } from 'react-navigation';
 import firebase from '../firebase.js';
 import AwesomeAlert from 'react-native-awesome-alerts';
 
@@ -26,7 +25,7 @@ class LoginForm extends Component {
         this.hideAlert = this.hideAlert.bind(this);
     }
 
-    async showAlert(callback, showProgress, title, message, confirmText, showConfirmButton) {
+    showAlert(callback, showProgress, title, message, confirmText, showConfirmButton) {
         this.setState({
             showAlert: true,
             showProgress,
@@ -41,7 +40,7 @@ class LoginForm extends Component {
         });
     }
 
-    async hideAlert(callback) {
+    hideAlert(callback) {
         this.setState({
             showAlert: false
         }, () => {
@@ -51,17 +50,17 @@ class LoginForm extends Component {
         });
     }
 
-    async signIn(email, password) {
-        // this.showAlert(null, true);
+    signIn(email, password) {
         this.setState({
             isLoginDisabled: true
         });
-        await firebase.auth().signInWithEmailAndPassword(email, password)
-        .then((firebaseUser) => {
-            console.log('process login firebaseUser', firebaseUser);
-            this.showAlert(null, true, 'Loggin in', 'Wait while we validate your credentials', 'OK', false);
+        this.showAlert(null, true, 'Loggin in',
+            'Wait while we validate your credentials', 'OK', false);
+        firebase.auth().signInWithEmailAndPassword(email, password)
+        .then(() => {
+            this.showAlert(null, true, 'Loggin in',
+                'Wait while we validate your credentials', 'OK', false);
         }).catch((error) => {
-            console.log('process login error', error);
             this.setState({
                 isLoginDisabled: false
             });
@@ -74,7 +73,6 @@ class LoginForm extends Component {
     }
 
     render() {
-        // const { showAlert, showProgress } = this.state;
         return (
             <View>
                 <TextInput 
@@ -103,7 +101,6 @@ class LoginForm extends Component {
                     style={styles.buttonContainer}
                     onPress={() => this.signIn(this.state.email, this.state.password)}
                     disabled={this.state.isLoginDisabled}
-                    // activeOpacity={!this.state.isLoginDisabled ? 1 : 0.7}
                 >
                     <Text
                         style={styles.buttonText} 
@@ -143,11 +140,6 @@ class LoginForm extends Component {
 export default LoginForm;
 
 const styles = StyleSheet.create({
-    formContainer: {
-        // flex: 1,
-        // justifyContent: 'flex-end',
-        // marginBottom: 36
-    },
     loginContainer: {
         justifyContent: 'center',
         alignItems: 'center',

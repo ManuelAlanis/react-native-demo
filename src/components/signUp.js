@@ -15,7 +15,7 @@ class SignUp extends Component {
                         source={{ uri: 'https://itbaja.org/wp-content/uploads/gravity_forms/1-dcc4dc85146084a2e975373dab5bab0f/2016/04/arkus2.png' }}
                     />
                 </View>
-                <View style={[styles.formContainer]}>
+                <View>
                     <SignUpForm />
                 </View>
             </KeyboardAvoidingView>
@@ -26,11 +26,6 @@ class SignUp extends Component {
 const styles = StyleSheet.create({
     title: {
         fontSize: 30
-    },
-    formContainer: {
-        // flex: 1,
-        // justifyContent: 'flex-end',
-        // marginBottom: 36
     },
     loginContainer: {
         justifyContent: 'center',

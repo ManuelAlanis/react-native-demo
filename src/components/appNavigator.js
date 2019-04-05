@@ -1,15 +1,11 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-import Login from './login.js';
-import SignUp from './signUp.js';
+import MainApplication from './MainApplication.js';
 
 const AppNavigator = createStackNavigator(
   {
-    Login: { 
-      screen: Login 
+    MainApplication: { 
+      screen: MainApplication 
     },
-    SignUp: { 
-      screen: SignUp 
-    }
   },
   {
     headerMode: 'none'
