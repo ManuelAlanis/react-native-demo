@@ -16,7 +16,7 @@ class SignUp extends Component {
                     />
                 </View>
                 <View>
-                    <SignUpForm />
+                    <SignUpForm navigation={this.props.navigation} />
                 </View>
             </KeyboardAvoidingView>
         );

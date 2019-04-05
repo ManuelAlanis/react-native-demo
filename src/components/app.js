@@ -30,17 +30,17 @@ class App extends React.Component {
     }
 
     render() {
-        if (this.state.isLoggedIn === null) {
+        if (this.state.isLoggedIn === false) {
             return (
-                <Splash />
+                <LoginNavigator />
             );
         } else if (this.state.isLoggedIn) {
             return (
-                <AppNavigator />
+                <AppNavigator navigation={this.props.navigation} />
             );
         }
         return (
-            <LoginNavigator />
+            <Splash />
         );
     }
 }

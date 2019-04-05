@@ -15,11 +15,11 @@ class SignUpForm extends Component {
 
     initBindings() {
         this.signUp = this.signUp.bind(this);
-        this.goToSignUp = this.goToSignUp.bind(this);
+        this.goBack = this.goBack.bind(this);
     }
 
-    goToSignUp() {
-        // this.props.navigation.navigate('SignUp');
+    goBack() {
+        this.props.navigation.goBack();
     }
 
     signUp(email, password) {
@@ -71,7 +71,7 @@ class SignUpForm extends Component {
                 <View style={styles.loginContainer}>
                     <Text 
                         style={styles.signUpButton}
-                        onPress={null}
+                        onPress={this.goBack}
                     >
                         Log in
                     </Text>

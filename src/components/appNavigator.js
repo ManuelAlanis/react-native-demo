@@ -4,11 +4,14 @@ import MainApplication from './MainApplication.js';
 const AppNavigator = createStackNavigator(
   {
     MainApplication: { 
-      screen: MainApplication 
+      navigationOptions: {
+        title: 'Application'
+      },
+      screen: MainApplication,
     },
   },
   {
-    headerMode: 'none'
+    headerMode: 'float'
   }
 );
 
