@@ -1,48 +1,7 @@
-
 import React from 'react';
-import { Text, View, Button } from 'react-native';
+import { Text, View, Button, StyleSheet } from 'react-native';
 import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
-
-class HomeScreen extends React.Component {
-    // static navigationOptions = () => {
-    //     title: 'Home',
-    //     /* No more header config here! */
-    // };
-    render() {
-
-        // firebase.auth().signOut().then(function() {
-        // // Sign-out successful.
-        // }).catch(function(error) {
-        // // An error happened.
-        // });
-
-        // var auth = firebase.auth();
-        // var emailAddress = "user@example.com";
-
-        // auth.sendPasswordResetEmail(emailAddress).then(function() {
-        // // Email sent.
-        // }).catch(function(error) {
-        // // An error happened.
-        // });
-
-        // var user = firebase.auth().currentUser;
-        // user.delete().then(function() {
-        // // User deleted.
-        // }).catch(function(error) {
-        // // An error happened.
-        // });
-
-        return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Home!</Text>
-            <Button
-                title="Update the title"
-                onPress={() => this.props.navigation.setParams({ otherParam: 'Updated!' })}
-            />
-        </View>
-        );
-    }
-}
+import HomeScreen from './HomeScreen.js';
 
 // eslint-disable-next-line react/no-multi-comp
 class SettingsScreen extends React.Component {
@@ -79,6 +38,19 @@ const TabNavigator = createBottomTabNavigator({
     SettingsScreenParent: {
         screen: SettingsScreen2,
     },
+});
+
+const styles = StyleSheet.create({
+container: {
+    ...StyleSheet.absoluteFillObject,
+    height: 400,
+    width: 400,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+},
+map: {
+    ...StyleSheet.absoluteFillObject,
+},
 });
 
 export default createAppContainer(TabNavigator);

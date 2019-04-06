@@ -16,12 +16,10 @@ class App extends React.Component {
     componentWillMount() {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
-                console.log('process login success auth');
                 this.setState({
                     isLoggedIn: true,
                 });
             } else {
-                console.log('process login error auth');
                 this.setState({
                     isLoggedIn: false,
                 });
