@@ -22,6 +22,8 @@ class Settings extends React.Component {
     initBinds() {
       this.handleSignOut = this.handleSignOut.bind(this);
       this.emptyOption = this.emptyOption.bind(this);
+      this.handleDestroyUser = this.handleDestroyUser.bind(this);
+      this.showAlert = this.showAlert.bind(this);
     }
 
     handleSignOut() {
@@ -154,7 +156,9 @@ class Settings extends React.Component {
               onCancelPressed={() => {
                   this.hideAlert();
               }}
-              onConfirmPressed={this.handleDestroyUser}
+              onConfirmPressed={() => {
+                this.handleDestroyUser();
+              }}
           />
         </View>
       );
