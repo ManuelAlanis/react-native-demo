@@ -39,4 +39,19 @@ export default StyleSheet.create({
     map: {
         ...StyleSheet.absoluteFillObject,
     },
+    settingOption: {
+        marginLeft: 25,
+        fontSize: 17,
+        color: '#000',
+        marginTop: 10,
+        marginBottom: 10,
+        // backgroundColor: '#3366ff',
+    },
+    settingOptionActive: {
+        marginLeft: 25,
+        fontSize: 17,
+        marginTop: 10,
+        marginBottom: 10,
+        color: '#3366ff',
+    },
 });

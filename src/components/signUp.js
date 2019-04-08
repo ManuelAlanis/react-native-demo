@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Image, View, StyleSheet, KeyboardAvoidingView } from 'react-native';
 // import styles from '../styles/styles.js';
-import SignUpForm from '../forms/signUpForm.js';
+import SignUpForm from '../forms/SignUpForm.js';
 import styles from '../styles/styles.js';
 
 class SignUp extends Component {

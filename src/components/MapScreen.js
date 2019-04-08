@@ -1,37 +1,14 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import styles from '../styles/styles.js';
- 
-class MapScreen extends React.Component {
+import styles from '../styles/styles.js'
+
+class HomeScreen extends React.Component {
     // static navigationOptions = () => {
     //     title: 'Home',
     //     /* No more header config here! */
     // };
     render() {
-
-        // firebase.auth().signOut().then(function() {
-        // // Sign-out successful.
-        // }).catch(function(error) {
-        // // An error happened.
-        // });
-
-        // var auth = firebase.auth();
-        // var emailAddress = "user@example.com";
-
-        // auth.sendPasswordResetEmail(emailAddress).then(function() {
-        // // Email sent.
-        // }).catch(function(error) {
-        // // An error happened.
-        // });
-
-        // var user = firebase.auth().currentUser;
-        // user.delete().then(function() {
-        // // User deleted.
-        // }).catch(function(error) {
-        // // An error happened.
-        // });
-
         return (
         <View 
             style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
@@ -52,6 +29,6 @@ class MapScreen extends React.Component {
         </View>
         );
     }
-  }
+}
 
-  export default MapScreen;
+export default HomeScreen;

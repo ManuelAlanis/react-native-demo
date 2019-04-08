@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
-import firebase from '../firebase.js';
 import AwesomeAlert from 'react-native-awesome-alerts';
+import firebase from '../firebase.js';
 import styles from '../styles/styles.js';
 
 class LoginForm extends Component {

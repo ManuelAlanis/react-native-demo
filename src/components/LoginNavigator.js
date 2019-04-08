@@ -1,6 +1,6 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-import Login from './login.js';
-import SignUp from './signUp.js';
+import Login from './Login.js';
+import SignUp from './SignUp.js';
 
 const LoginNavigator = createStackNavigator(
   {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Image, View, StyleSheet, KeyboardAvoidingView } from 'react-native';
-import LoginForm from '../forms/loginForm.js';
+import LoginForm from '../forms/LoginForm.js';
 import styles from '../styles/styles.js';
 
 class Login extends Component {

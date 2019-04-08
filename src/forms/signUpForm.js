@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-// import { withNavigation } from 'react-navigation';
+import AwesomeAlert from 'react-native-awesome-alerts';
 import firebase from '../firebase.js';
 import styles from '../styles/styles.js';
 
@@ -10,6 +10,11 @@ class SignUpForm extends Component {
         this.state = {
             email: '',
             password: '',
+            showAlert: false,
+            message: '',
+            confirmText: '',
+            showConfirmButton: false,
+            isLoginDisabled: false,
         };
         this.initBindings();
     }
@@ -17,20 +22,48 @@ class SignUpForm extends Component {
     initBindings() {
         this.signUp = this.signUp.bind(this);
         this.goBack = this.goBack.bind(this);
+        this.showAlert = this.showAlert.bind(this);
+        this.hideAlert = this.hideAlert.bind(this);
     }
 
     goBack() {
         this.props.navigation.goBack();
     }
 
+    showAlert(callback, showProgress, title, message, confirmText, showConfirmButton) {
+        this.setState({
+            showAlert: true,
+            showProgress,
+            title,
+            message,
+            confirmText,
+            showConfirmButton,
+        }, () => {
+            if (callback) {
+                callback();
+            }
+        });
+    }
+
+    hideAlert(callback) {
+        this.setState({
+            showAlert: false
+        }, () => {
+            if (callback) {
+                callback();
+            }
+        });
+    }
+
     signUp(email, password) {
+        this.showAlert(null, true, 'Loggin in',
+            'Wait while we register your credentials', 'OK', false);
         firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((firebaseUser) => {
             console.log('process login firebaseUser', firebaseUser);
             // this.hideAlert();
         }).catch((error) => {
-            console.log('process login error', error);
-            // this.hideAlert();
+            this.showAlert(null, false, 'An error has ocurred', error.message, 'OK', true);
         });
     }
 
@@ -61,7 +94,7 @@ class SignUpForm extends Component {
 
                 <TouchableOpacity 
                     style={styles.buttonContainer} 
-                    onPress={this.signUp(this.state.email, this.state.password)}
+                    onPress={() => this.signUp(this.state.email, this.state.password)}
                 >
                     <Text
                         style={styles.buttonText} 
@@ -76,7 +109,23 @@ class SignUpForm extends Component {
                     >
                         Log in
                     </Text>
-                </View> 
+                </View>
+                <AwesomeAlert
+                    show={this.state.showAlert}
+                    showProgress={this.state.showProgress}
+                    title={this.state.title}
+                    message={this.state.message}
+                    confirmText={this.state.confirmText}
+                    showConfirmButton={this.state.showConfirmButton}
+                    closeOnTouchOutside={false}
+                    confirmButtonColor="#DD6B55"
+                    onCancelPressed={() => {
+                        this.hideAlert();
+                    }}
+                    onConfirmPressed={() => {
+                        this.hideAlert();
+                    }}
+                />
             </View>
         );
     }
