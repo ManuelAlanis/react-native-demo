@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Image, View, KeyboardAvoidingView, ScrollView } from 'react-native';
-// import styles from '../styles/styles.js';
 import SignUpForm from '../forms/SignUpForm.js';
 import styles from '../styles/styles.js';
 
