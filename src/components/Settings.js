@@ -87,42 +87,42 @@ class Settings extends React.Component {
           <TouchableHighlight underlayColor={'#e2e2e2'} onPress={this.emptyOption}>
             <View>
               <Text style={styles.settingOption}>
-                Log out
+                Empty option
               </Text>
             </View>
           </TouchableHighlight>
           <TouchableHighlight underlayColor={'#e2e2e2'} onPress={this.emptyOption}>
             <View>
               <Text style={styles.settingOption}>
-                Destroy my user and log out
+                Empty option
               </Text>
             </View>
           </TouchableHighlight>
           <TouchableHighlight underlayColor={'#e2e2e2'} onPress={this.emptyOption}>
             <View>
               <Text style={styles.settingOption}>
-                Log out
+                Empty option
               </Text>
             </View>
           </TouchableHighlight>
           <TouchableHighlight underlayColor={'#e2e2e2'} onPress={this.emptyOption}>
             <View>
               <Text style={styles.settingOption}>
-                Destroy my user and log out
+                Empty option
               </Text>
             </View>
           </TouchableHighlight>
           <TouchableHighlight underlayColor={'#e2e2e2'} onPress={this.emptyOption}>
             <View>
               <Text style={styles.settingOption}>
-                Log out
+                Empty option
               </Text>
             </View>
           </TouchableHighlight>
           <TouchableHighlight underlayColor={'#e2e2e2'} onPress={this.emptyOption}>
             <View>
               <Text style={styles.settingOption}>
-                Destroy my user and log out
+                Empty option
               </Text>
             </View>
           </TouchableHighlight>
@@ -150,7 +150,7 @@ class Settings extends React.Component {
               showCancelButton
               showConfirmButton={this.state.isShowConfirmButton}
               closeOnTouchOutside={false}
-              confirmButtonColor="#DD6B55"
+              confirmButtonColor="#e20021"
               onCancelPressed={() => {
                   this.hideAlert();
               }}

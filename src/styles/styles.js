@@ -45,7 +45,6 @@ export default StyleSheet.create({
         color: '#000',
         marginTop: 10,
         marginBottom: 10,
-        // backgroundColor: '#3366ff',
     },
     settingOptionActive: {
         marginLeft: 25,
@@ -54,4 +53,11 @@ export default StyleSheet.create({
         marginBottom: 10,
         color: '#3366ff',
     },
+    alertOverlayStyle:{
+        opacity: 0
+    },
+    alertContentContainerStyle: {
+        borderColor: '#b1b1b1',
+        borderWidth: 0.5
+    }
 });

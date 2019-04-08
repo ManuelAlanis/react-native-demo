@@ -125,13 +125,16 @@ class LoginForm extends Component {
                     confirmText={this.state.confirmText}
                     showConfirmButton={this.state.showConfirmButton}
                     closeOnTouchOutside={false}
-                    confirmButtonColor="#DD6B55"
+                    confirmButtonColor="#e20021"
+                    closeOnHardwareBackPress={false}
                     onCancelPressed={() => {
                         this.hideAlert();
                     }}
                     onConfirmPressed={() => {
                         this.hideAlert();
                     }}
+                    overlayStyle={styles.alertOverlayStyle}
+                    contentContainerStyle={styles.alertContentContainerStyle}
                 />
             </View>
         );
