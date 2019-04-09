@@ -16,10 +16,15 @@ export default StyleSheet.create({
     },
     input: {
         height: 40,
-        backgroundColor: 'rgba(225,225,225,0.2)',
+        backgroundColor: '#e1e1e1',
         marginBottom: 10,
         padding: 10,
         color: '#000'
+    },
+    datePicker: {
+        height: 40,
+        marginBottom: 20,
+        padding: 10,
     },
     buttonContainer: {
         backgroundColor: '#e20021',

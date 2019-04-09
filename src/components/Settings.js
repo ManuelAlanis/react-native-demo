@@ -24,6 +24,7 @@ class Settings extends React.Component {
       this.emptyOption = this.emptyOption.bind(this);
       this.handleDestroyUser = this.handleDestroyUser.bind(this);
       this.showAlert = this.showAlert.bind(this);
+      this.handleResetPassword = this.handleResetPassword.bind(this);
     }
 
     handleSignOut() {
@@ -47,15 +48,17 @@ class Settings extends React.Component {
 
     }
 
-    resetPassword() {
-    // var auth = firebase.auth();
-    // var emailAddress = "user@example.com";
+    async handleResetPassword() {
+      const auth = firebase.auth();
+      const emailAddress = "man.alaniz@gmail.com";
 
-    // auth.sendPasswordResetEmail(emailAddress).then(function() {
-    // // Email sent.
-    // }).catch(function(error) {
-    // // An error happened.
-    // });
+      await auth.sendPasswordResetEmail(emailAddress).then(function() {
+        this.showAlert(null, false, 'Email sent',
+          'We have sent you a email to reset password', 'Ok', true);
+      }).catch(function(error) {
+        this.showAlert(null, false, 'Password reset error',
+          'An error ', 'Ok', true);
+      });
     }
 
     showAlert(callback, isShowProgress, title, message, confirmText, isShowConfirmButton) {
@@ -121,10 +124,10 @@ class Settings extends React.Component {
               </Text>
             </View>
           </TouchableHighlight>
-          <TouchableHighlight underlayColor={'#e2e2e2'} onPress={this.emptyOption}>
+          <TouchableHighlight underlayColor={'#e2e2e2'} onPress={() => this.handleResetPassword}>
             <View>
               <Text style={styles.settingOption}>
-                Empty option
+                Reset password
               </Text>
             </View>
           </TouchableHighlight>
