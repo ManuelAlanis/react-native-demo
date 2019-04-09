@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Marker, AnimatedRegion, PROVIDER_GOOGLE } from 'react-native-maps';
 import styles from '../styles/styles.js'
 
 class HomeScreen extends React.Component {
@@ -8,6 +8,16 @@ class HomeScreen extends React.Component {
     //     title: 'Home',
     //     /* No more header config here! */
     // };
+    constructor() {
+        super()
+        this.state = {
+            coordinate: {
+                latitude: 32.5224664,
+                longitude: -117.0190774,
+            }
+        }
+    }
+
     render() {
         return (
         <View 
@@ -19,12 +29,14 @@ class HomeScreen extends React.Component {
                 provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                 style={styles.map}
                 region={{
-                    latitude: 37.78825,
-                    longitude: -122.4324,
-                    latitudeDelta: 0.015,
-                    longitudeDelta: 0.0121,
+                    latitude: 32.5224664,
+                    longitude: -117.0190774,
+                    latitudeDelta: 0.008,
+                    longitudeDelta: 0.0051,
+                    zoom: 11
                 }}
-            >
+            >   
+                <Marker coordinate={this.state.coordinate} />
             </MapView>
         </View>
         );

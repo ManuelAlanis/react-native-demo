@@ -61,7 +61,6 @@ class SignUpForm extends Component {
         firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((firebaseUser) => {
             console.log('process login firebaseUser', firebaseUser);
-            // this.hideAlert();
         }).catch((error) => {
             this.showAlert(null, false, 'An error has ocurred', error.message, 'OK', true);
         });

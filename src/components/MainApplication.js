@@ -1,23 +1,50 @@
-import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
+import { createBottomTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation';
 import MapScreen from './MapScreen.js';
 import HomeScreen from './HomeScreen.js';
 import Settings from './Settings.js';
 
+const HomeNavigator = createStackNavigator({
+    BookmarkList: { 
+        screen: HomeScreen,
+        navigationOptions: {
+            title: 'Home'
+        } 
+    },
+});
+
+const MapNavigator = createStackNavigator({
+    NewBookmark: { 
+        screen: MapScreen,
+        navigationOptions: {
+            title: 'Map'
+        }  
+    },
+});
+
+const SettingsNavigator = createStackNavigator({
+    NewBookmark: { 
+        screen: Settings,
+        navigationOptions: {
+            title: 'Settings'
+        }  
+    },
+});
+
 const TabNavigator = createBottomTabNavigator({
     Home: {
-        screen: HomeScreen,
+        screen: HomeNavigator,
         navigationOptions: {
             title: 'Home screen'
         }
     },
     Map: {
-        screen: MapScreen,
+        screen: MapNavigator,
         navigationOptions: {
           title: 'Map'
         }
     },
     Settings: {
-        screen: Settings,
+        screen: SettingsNavigator,
         navigationOptions: {
           title: 'Settings'
         }
