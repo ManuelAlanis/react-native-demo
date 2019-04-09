@@ -4,10 +4,6 @@ import MapView, { Marker, AnimatedRegion, PROVIDER_GOOGLE } from 'react-native-m
 import styles from '../styles/styles.js'
 
 class HomeScreen extends React.Component {
-    // static navigationOptions = () => {
-    //     title: 'Home',
-    //     /* No more header config here! */
-    // };
     constructor() {
         super()
         this.state = {

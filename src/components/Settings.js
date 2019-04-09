@@ -48,7 +48,7 @@ class Settings extends React.Component {
     }
 
     resetPassword() {
-        // var auth = firebase.auth();
+    // var auth = firebase.auth();
     // var emailAddress = "user@example.com";
 
     // auth.sendPasswordResetEmail(emailAddress).then(function() {

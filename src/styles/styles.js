@@ -59,5 +59,11 @@ export default StyleSheet.create({
     alertContentContainerStyle: {
         borderColor: '#b1b1b1',
         borderWidth: 0.5
+    },
+    containerForm: {
+        margin: 10
+    },
+    formTitle: {
+        fontSize: 20
     }
 });

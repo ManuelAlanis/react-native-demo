@@ -78,7 +78,7 @@ class SignUpForm extends Component {
                     keyboardType='email-address' 
                     returnKeyType="next" 
                     placeholder='Email' 
-                    placeholderTextColor='rgba(225,225,225,0.7)'
+                    placeholderTextColor='#8d8d8d'
                 />
                 
                 <TextInput
@@ -87,7 +87,7 @@ class SignUpForm extends Component {
                     onChangeText={password => this.setState({ password })} 
                     ref={(input)=> this.passwordInput = input} 
                     placeholder='Password' 
-                    placeholderTextColor='rgba(225,225,225,0.7)' 
+                    placeholderTextColor='#8d8d8d' 
                     secureTextEntry
                 />
 
