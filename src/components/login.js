@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, View, KeyboardAvoidingView, ScrollView } from 'react-native';
+import { Image, View, KeyboardAvoidingView, ScrollView, Text } from 'react-native';
 import LoginForm from '../forms/LoginForm.js';
 import styles from '../styles/styles.js';
 
@@ -8,6 +8,7 @@ class Login extends Component {
         return (
             <ScrollView>
                 <KeyboardAvoidingView behavior="padding" style={styles.container}>
+            
                     <View style={styles.loginContainer}>
                         <Image
                             resizeMode="contain"

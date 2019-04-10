@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, Text } from 'react-native';
 
 class Splash extends React.Component {
     render() {
         return (
             <View style={styles.loginContainer}>
+                <Text>Splash</Text>
                 <Image
                     resizeMode="contain"
                     style={styles.imageLogo}

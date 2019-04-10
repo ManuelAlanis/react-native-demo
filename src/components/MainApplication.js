@@ -4,25 +4,25 @@ import HomeScreen from './HomeScreen.js';
 import Settings from './Settings.js';
 
 const HomeNavigator = createStackNavigator({
-    BookmarkList: { 
+    Home: { 
         screen: HomeScreen,
         navigationOptions: {
-            title: 'Home'
+            title: 'Home 2222'
         } 
     },
 });
 
 const MapNavigator = createStackNavigator({
-    NewBookmark: { 
+    Map: { 
         screen: MapScreen,
         navigationOptions: {
-            title: 'Map'
+            title: 'Map 2222'
         }  
     },
 });
 
 const SettingsNavigator = createStackNavigator({
-    NewBookmark: { 
+    Settings: { 
         screen: Settings,
         navigationOptions: {
             title: 'Settings'
