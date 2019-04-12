@@ -1,6 +1,6 @@
 # react-native-demo
 
-To run the application: 
+To run the application firts run: 
 
 ```bash 
 $ npm install
