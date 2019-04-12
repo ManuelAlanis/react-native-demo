@@ -6,7 +6,7 @@ To run the application:
 $ npm install
 ``` 
 
-and 
+make sync on android studio and run: 
 
 ```bash 
 $ react-native run-android
