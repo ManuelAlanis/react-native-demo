@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import AwesomeAlert from 'react-native-awesome-alerts';
-import firebase from '../firebase.js';
+import { Firebase } from '../firebase.js';
 import styles from '../styles/styles.js';
 
 class LoginForm extends Component {
@@ -57,7 +57,7 @@ class LoginForm extends Component {
         });
         this.showAlert(null, true, 'Loggin in',
             'Wait while we validate your credentials', 'OK', false);
-        firebase.auth().signInWithEmailAndPassword(email, password)
+        Firebase.auth().signInWithEmailAndPassword(email, password)
         .then(() => {
             this.showAlert(null, true, 'Loggin in',
                 'Wait while we validate your credentials', 'OK', false);

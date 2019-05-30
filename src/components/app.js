@@ -1,5 +1,5 @@
 import React from 'react';
-import firebase from '../firebase.js/';
+import { Firebase } from '../firebase.js/';
 import AppNavigator from '../components/appNavigator.js';
 import LoginNavigator from '../components/LoginNavigator.js';
 import Splash from '../splash/Splash.js';
@@ -14,7 +14,7 @@ class App extends React.Component {
     }
     
     componentWillMount() {
-        firebase.auth().onAuthStateChanged((user) => {
+        Firebase.auth().onAuthStateChanged((user) => {
             if (user) {
                 this.setState({
                     isLoggedIn: true,

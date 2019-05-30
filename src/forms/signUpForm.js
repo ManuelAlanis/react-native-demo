@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import AwesomeAlert from 'react-native-awesome-alerts';
-import firebase from '../firebase.js';
+import { Firebase } from '../firebase.js';
 import styles from '../styles/styles.js';
 
 class SignUpForm extends Component {
@@ -58,7 +58,7 @@ class SignUpForm extends Component {
     signUp(email, password) {
         this.showAlert(null, true, 'Loggin in',
             'Wait while we register your credentials', 'OK', false);
-        firebase.auth().createUserWithEmailAndPassword(email, password)
+        Firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((firebaseUser) => {
             console.log('process login firebaseUser', firebaseUser);
         }).catch((error) => {

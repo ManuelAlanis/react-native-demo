@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import styles from '../styles/styles.js'
-import firebase  from '../firebase.js'
+import { Firebase }  from '../firebase.js'
 
 class Settings extends React.Component {
 
@@ -28,7 +28,7 @@ class Settings extends React.Component {
     }
 
     handleSignOut() {
-      firebase.auth().signOut().then(function() {
+      Firebase.auth().signOut().then(function() {
         console.log('process login Sign-out successful.');
       }).catch(function(error) {
         console.log('process login Sign-out An error happened.');
@@ -36,7 +36,7 @@ class Settings extends React.Component {
     }
 
     handleDestroyUser() {
-      const user = firebase.auth().currentUser;
+      const user = Firebase.auth().currentUser;
       user.delete().then(function() {
         console.log('process login Sign-out successful.');
       }).catch(function(error) {
@@ -49,7 +49,7 @@ class Settings extends React.Component {
     }
 
     async handleResetPassword() {
-      const auth = firebase.auth();
+      const auth = Firebase.auth();
       const emailAddress = "man.alaniz@gmail.com";
 
       await auth.sendPasswordResetEmail(emailAddress).then(function() {

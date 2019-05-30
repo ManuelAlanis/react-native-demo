@@ -3,20 +3,6 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import DatePicker from 'react-native-datepicker'
 import AwesomeAlert from 'react-native-awesome-alerts';
 import styles from '../styles/styles.js';
-import * as firebase from 'firebase';
-
-const config = {
-  apiKey: 'AIzaSyABVaCF2l8XTtymRpFttfx6LBmqvMRPzLw',
-  authDomain: 'authentication-a5265.firebaseapp.com',
-  databaseURL: 'https://authentication-a5265.firebaseio.com',
-  projectId: 'authentication-a5265',
-  appId: 'bdda3018bb58ca0a',
-  storageBucket: 'authentication-a5265.appspot.com',
-  messagingSenderId: '903384301428'
-}
-
-import 'firebase/firestore';
-
 
 const DELAY_TIME_OUT = 3000;
 
@@ -41,37 +27,6 @@ class HomeScreen extends React.Component {
     }
 
     handleSubmit() {
-
-      firebase.initializeApp(config);
-
-      const settings = { timestampInSnapshot: true };
-
-      const firestore = firebase.firestore;
-      firestore.settings(settings);
-
-      // var db = firebase.firestore();
-      // firebase.initializeApp({
-      //   apiKey: '### FIREBASE API KEY ###',
-      //   authDomain: '### FIREBASE AUTH DOMAIN ###',
-      //   projectId: '### CLOUD FIRESTORE PROJECT ID ###'
-      // });
-      
-      // Initialize Cloud Firestore through Firebase
-      // var db = firebase.firestore();
-
-      // const config = {
-      //   apiKey: 'AIzaSyABVaCF2l8XTtymRpFttfx6LBmqvMRPzLw',
-      //   authDomain: 'authentication-a5265.firebaseapp.com',
-      //   databaseURL: 'https://authentication-a5265.firebaseio.com',
-      //   projectId: 'authentication-a5265',
-      //   storageBucket: 'authentication-a5265.appspot.com',
-      //   messagingSenderId: '903384301428'
-      // };
-
-      // firebase.initializeApp(config);
-
-      // var db = firebase.firestore().collection('products');
-      // console.log('database firestore', db);
       this.showAlert(null, true, 'Wait',
       'This is a empty demo form, just wait 3 seconds please', 'OK', false);
       setTimeout(() => {
