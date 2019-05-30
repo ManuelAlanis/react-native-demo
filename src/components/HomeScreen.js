@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, FlatList } from 'react-native';
 import DatePicker from 'react-native-datepicker'
 import AwesomeAlert from 'react-native-awesome-alerts';
 import styles from '../styles/styles.js';
+import { Database } from '../firebase.js';
 
 const DELAY_TIME_OUT = 3000;
 
@@ -16,8 +17,34 @@ class HomeScreen extends React.Component {
         confirmText: '',
         showConfirmButton: false,
         isLoginDisabled: false,
+        productName: '',
+        productPrice: '',
+        barCode: '',
+        products: {}
       }
       this.initBinds();
+    }
+
+    componentDidMount(){ 
+      this.getProducts();
+    }
+
+    async getProducts() {
+      var products = await Database.collection("products").get()
+      .then(function(querySnapshot) {
+        const array = [];
+        querySnapshot.forEach(function(doc) {
+          array.push(doc.data())
+        });
+        return array;
+      })
+      .catch(function(error) {
+          console.log("Error getting documents: ", error);
+      });
+      await this.setState({
+        products
+      })
+      console.log('this.state.products finally', this.state.products);
     }
 
     initBinds(){
@@ -26,9 +53,30 @@ class HomeScreen extends React.Component {
       this.hideAlert = this.hideAlert.bind(this);
     }
 
-    handleSubmit() {
+    clearState() {
+      this.setState({
+        productName: '',
+        productPrice: '',
+        barCode: ''
+      });
+    }
+
+    async handleSubmit() {
+      await Database.collection("products").add({
+          name: this.state.productName,
+          price: this.state.productPrice,
+          barCode: this.state.barCode,
+          create_at: new Date()
+      })
+      .then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+      });
+      this.clearState();
       this.showAlert(null, true, 'Wait',
-      'This is a empty demo form, just wait 3 seconds please', 'OK', false);
+      'Adding this product to catalog', 'OK', false);
       setTimeout(() => {
         this.hideAlert();
       }, DELAY_TIME_OUT)
@@ -66,26 +114,36 @@ class HomeScreen extends React.Component {
           <TextInput 
             style={styles.input} 
             autoCapitalize="none"
-            onChangeText={email => this.setState({ email })}
+            onChangeText={productName => this.setState({ productName })}
             onSubmitEditing={() => this.passwordInput.focus()} 
             autoCorrect={false} 
             keyboardType='default'
             returnKeyType='next'
-            placeholder='First name'
+            placeholder='Product name'
             placeholderTextColor='#8d8d8d'
           />
         
           <TextInput
             style={styles.input}
-            onChangeText={password => this.setState({ password })}
+            onChangeText={productPrice => this.setState({ productPrice })}
             ref={(input)=> this.passwordInput = input} 
             returnKeyType='go'
             keyboardType='default'
-            placeholder='Last name' 
+            placeholder='Price' 
             placeholderTextColor='#8d8d8d' 
           />
 
-          <DatePicker
+          <TextInput
+            style={styles.input}
+            onChangeText={barCode => this.setState({ barCode })}
+            ref={(input)=> this.passwordInput = input} 
+            returnKeyType='go'
+            keyboardType='default'
+            placeholder='Barcode' 
+            placeholderTextColor='#8d8d8d' 
+          />
+
+          {/* <DatePicker
             style={styles.datePicker}
             date={this.state.date}
             mode="date"
@@ -108,7 +166,7 @@ class HomeScreen extends React.Component {
               }
             }}
             onDateChange={(date) => {this.setState({date: date})}}
-          />
+          /> */}
 
           <TouchableOpacity 
             style={styles.buttonContainer}
@@ -118,9 +176,15 @@ class HomeScreen extends React.Component {
             <Text
               style={styles.buttonText} 
             >
-              SUBMIT
+              ADD NEW PRODUCT
             </Text>
           </TouchableOpacity>
+
+          <FlatList
+            data={this.state.products}
+            renderItem={({item}) => <Text>{item.name}</Text>}
+          />
+
           <AwesomeAlert
             show={this.state.showAlert}
             showProgress={this.state.showProgress}
