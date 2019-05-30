@@ -9,7 +9,7 @@ import { CardEcomOne, CardEcomTwo, CardEcomFour, CardNine } from 'react-native-c
 const DELAY_TIME_OUT = 3000;
 
 
-class HomeScreen extends React.Component {
+class Purchases extends React.Component {
     constructor() {
       super();
       this.state = {
@@ -23,7 +23,8 @@ class HomeScreen extends React.Component {
         productPrice: '',
         barCode: '234234',
         products: {},
-        userCart: []
+        userCart: [],
+        myPurchases: ''
       }
       this.initBinds();
       let userCart = [];
@@ -35,21 +36,24 @@ class HomeScreen extends React.Component {
     }
 
     async getProducts() {
-      var products = await Database.collection("products").get()
-      .then(function(querySnapshot) {
-        const array = [];
-        querySnapshot.forEach(function(doc) {
-          array.push(doc.data())
-        });
-        return array;
-      })
-      .catch(function(error) {
+        const client_id = Firebase.auth().currentUser.uid;
+        const myPurchases = await Database.collection("purchases").where("client_id", "==", client_id)
+        .get()
+        .then(function(querySnapshot) {
+          const array = [];
+          querySnapshot.forEach(function(doc) {
+            array.push(doc.data())
+          });
+          return array;
+        })
+        .catch(function(error) {
           console.log("Error getting documents: ", error);
-      });
+        });
+
+      console.log('myPurchases', myPurchases);
       await this.setState({
-        products
+        myPurchases
       })
-      console.log('this.state.products finally', this.state.products);
     }
 
     initBinds(){
@@ -57,8 +61,6 @@ class HomeScreen extends React.Component {
       this.showAlert = this.showAlert.bind(this);
       this.hideAlert = this.hideAlert.bind(this);
       this.addToCart =  this.addToCart.bind(this);
-      this.renderCartItem =  this.renderCartItem.bind(this);
-      this.buyCartNow = this.buyCartNow.bind(this);
     }
 
     clearState() {
@@ -131,9 +133,10 @@ class HomeScreen extends React.Component {
     }
 
     renderCard(item){
+      const totalItems = 'Compraste ' + item.items.length + ' articulo(s)'
       return(
-        <CardEcomFour
-            title={item.name}
+        <CardEcomOne
+            title={totalItems}
             subTitle={item.description}
             price={item.price}
             image={{uri:"https://st.depositphotos.com/1796303/4940/i/950/depositphotos_49400471-stock-photo-woolen-sweater-black-background.jpg"}}
@@ -142,97 +145,21 @@ class HomeScreen extends React.Component {
             onClickButton={() => this.addToCart(item)}
           />
       );
-    }
-
-    renderCartItem(item){
-      return(
-        <CardEcomTwo
-            title={item.name}
-            subTitle={item.description}
-            price={item.price}
-            image={{uri:"https://st.depositphotos.com/1796303/4940/i/950/depositphotos_49400471-stock-photo-woolen-sweater-black-background.jpg"}}
-            buttonText={"ADD TO CART"}
-            buttonColor={"#4383FF"}
-            onClickButton={() => this.addToCart(item)}
-          />
-      );
-    }
-
-    async buyCartNow() {
-      this.setState({
-        userCart: []
-      });
-      const client_id = Firebase.auth().currentUser.uid;
-      await Database.collection("purchases").add({
-        items: this.state.userCart,
-        create_at: new Date(),
-        client_id
-      })
-      .then(function(docRef) {
-          console.log("Document written with ID: ", docRef.id);
-      })
-      .catch(function(error) {
-          console.error("Error adding document: ", error);
-      });
     }
 
     render() {
-      // const { userCart } = this.state
       return (
         <ScrollView>
         <View style={styles.containerForm}>
-          {/* <DatePicker
-            style={styles.datePicker}
-            date={this.state.date}
-            mode="date"
-            placeholder="select date"
-            format="YYYY-MM-DD"
-            minDate="2016-05-01"
-            maxDate="2016-06-01"
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            androidMode='default'
-            customStyles={{
-              dateIcon: {
-                position: 'absolute',
-                left: 0,
-                top: 4,
-                marginLeft: 0,
-              },
-              dateInput: {
-                marginLeft: 36
-              }
-            }}
-            onDateChange={(date) => {this.setState({date: date})}}
-          /> */}
        
-          <FlatList
-            data={this.state.products}
-            renderItem={({item}) => this.renderCard(item)}
-          />
-
           <Text style={{fontSize: 30, marginTop: 10 }}>
-            My cart
+            My purchases
           </Text>
 
           <FlatList
-              keyExtractor={(item) => item.id}
-              extraData={this.state}
-              data={this.state.userCart}
-              renderItem={({item}) => this.renderCartItem(item)}
+            data={this.state.myPurchases}
+            renderItem={({item}) => this.renderCard(item)}
           />
-
-          <TouchableOpacity 
-            style={styles.buttonContainer}
-            onPress={this.buyCartNow}
-            disabled={this.state.isLoginDisabled}
-          >
-            <Text
-              style={styles.buttonText} 
-            >
-              BUY CART NOW
-            </Text>
-          </TouchableOpacity>
 
           <AwesomeAlert
             style={{alignItems: 'center',
@@ -261,4 +188,4 @@ class HomeScreen extends React.Component {
     }
   }
 
-export default HomeScreen;
+export default Purchases;

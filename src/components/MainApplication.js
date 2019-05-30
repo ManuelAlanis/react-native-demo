@@ -3,6 +3,7 @@ import { Text, View} from 'react-native';
 import { createBottomTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation';
 import MapScreen from './MapScreen.js';
 import HomeScreen from './HomeScreen.js';
+import Purchases from './Purchases.js';
 import AddProducts from './AddProducts.js';
 import Settings from './Settings.js';
 
@@ -37,6 +38,15 @@ const HomeNavigator = createStackNavigator({
     },
 });
 
+const PurchasesNavigator = createStackNavigator({
+    Purchases: { 
+        screen: Purchases,
+        navigationOptions: {
+            title: 'My purchases'
+        } 
+    },
+});
+
 const MapNavigator = createStackNavigator({
     Map: { 
         screen: MapScreen,
@@ -66,6 +76,12 @@ const TabNavigator = createBottomTabNavigator({
         screen: HomeNavigator,
         navigationOptions: {
             title: 'Products'
+        }
+    },
+    Purchases: {
+        screen: PurchasesNavigator,
+        navigationOptions: {
+            title: 'Purchases'
         }
     },
     Map: {
