@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Image, View, KeyboardAvoidingView, ScrollView, Text } from 'react-native';
-import LoginForm from '../forms/LoginForm.js';
+import LoginForm from '../forms/loginForm.js';
 import styles from '../styles/styles.js';
 
 class Login extends Component {
@@ -13,7 +13,7 @@ class Login extends Component {
                         <Image
                             resizeMode="contain"
                             style={styles.imageLogo}
-                            source={{ uri: 'https://itbaja.org/wp-content/uploads/gravity_forms/1-dcc4dc85146084a2e975373dab5bab0f/2016/04/arkus2.png' }}
+                            source={{ uri: 'https://i.imgur.com/fsg7Gji.jpg' }}
                         />
                     </View> 
                     <View>

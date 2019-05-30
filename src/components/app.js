@@ -1,7 +1,7 @@
 import React from 'react';
 import firebase from '../firebase.js/';
-import AppNavigator from './AppNavigator.js';
-import LoginNavigator from './LoginNavigator.js';
+import AppNavigator from '../components/appNavigator.js';
+import LoginNavigator from '../components/LoginNavigator.js';
 import Splash from '../splash/Splash.js';
 
 class App extends React.Component {

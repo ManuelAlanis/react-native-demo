@@ -5,11 +5,10 @@ class Splash extends React.Component {
     render() {
         return (
             <View style={styles.loginContainer}>
-                <Text>Splash</Text>
                 <Image
                     resizeMode="contain"
                     style={styles.imageLogo}
-                    source={{ uri: 'https://itbaja.org/wp-content/uploads/gravity_forms/1-dcc4dc85146084a2e975373dab5bab0f/2016/04/arkus2.png' }}
+                    source={{ uri: 'https://i.imgur.com/fsg7Gji.jpg' }}
                 />
             </View>
         );   
