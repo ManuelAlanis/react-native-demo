@@ -3,7 +3,20 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import DatePicker from 'react-native-datepicker'
 import AwesomeAlert from 'react-native-awesome-alerts';
 import styles from '../styles/styles.js';
-// import firebase from 'react-native-firebase';
+import * as firebase from 'firebase';
+
+const config = {
+  apiKey: 'AIzaSyABVaCF2l8XTtymRpFttfx6LBmqvMRPzLw',
+  authDomain: 'authentication-a5265.firebaseapp.com',
+  databaseURL: 'https://authentication-a5265.firebaseio.com',
+  projectId: 'authentication-a5265',
+  appId: 'bdda3018bb58ca0a',
+  storageBucket: 'authentication-a5265.appspot.com',
+  messagingSenderId: '903384301428'
+}
+
+import 'firebase/firestore';
+
 
 const DELAY_TIME_OUT = 3000;
 
@@ -29,6 +42,14 @@ class HomeScreen extends React.Component {
 
     handleSubmit() {
 
+      firebase.initializeApp(config);
+
+      const settings = { timestampInSnapshot: true };
+
+      const firestore = firebase.firestore;
+      firestore.settings(settings);
+
+      // var db = firebase.firestore();
       // firebase.initializeApp({
       //   apiKey: '### FIREBASE API KEY ###',
       //   authDomain: '### FIREBASE AUTH DOMAIN ###',
