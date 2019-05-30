@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, FlatList, ScrollView } from 'react-native';
+import { View, Text, TextInput, RefreshControl, TouchableOpacity, FlatList, ScrollView } from 'react-native';
 import DatePicker from 'react-native-datepicker'
 import AwesomeAlert from 'react-native-awesome-alerts';
 import styles from '../styles/styles.js';
@@ -24,7 +24,8 @@ class Purchases extends React.Component {
         barCode: '234234',
         products: {},
         userCart: [],
-        myPurchases: ''
+        myPurchases: '',
+        refreshing: false
       }
       this.initBinds();
       let userCart = [];
@@ -61,6 +62,7 @@ class Purchases extends React.Component {
       this.showAlert = this.showAlert.bind(this);
       this.hideAlert = this.hideAlert.bind(this);
       this.addToCart =  this.addToCart.bind(this);
+      this.onRefresh = this.onRefresh.bind(this);
     }
 
     clearState() {
@@ -137,6 +139,7 @@ class Purchases extends React.Component {
       return(
         <CardEcomOne
             title={totalItems}
+            nbStar={item.items.length}
             subTitle={item.description}
             price={item.price}
             image={{uri:"https://st.depositphotos.com/1796303/4940/i/950/depositphotos_49400471-stock-photo-woolen-sweater-black-background.jpg"}}
@@ -147,42 +150,54 @@ class Purchases extends React.Component {
       );
     }
 
+    async onRefresh() {
+        this.setState({refreshing: true});
+        await this.getProducts();
+        this.setState({refreshing: false});
+    }    
+
     render() {
       return (
-        <ScrollView>
-        <View style={styles.containerForm}>
-       
-          <Text style={{fontSize: 30, marginTop: 10 }}>
-            My purchases
-          </Text>
+        <ScrollView
+            refreshControl={
+                <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this.onRefresh}/>
+            }
+        >
+            <View style={styles.containerForm}>
+        
+            <Text style={{fontSize: 30, marginTop: 10 }}>
+                My purchases
+            </Text>
 
-          <FlatList
-            data={this.state.myPurchases}
-            renderItem={({item}) => this.renderCard(item)}
-          />
+            <FlatList
+                data={this.state.myPurchases}
+                renderItem={({item}) => this.renderCard(item)}
+            />
 
-          <AwesomeAlert
-            style={{alignItems: 'center',
-            justifyContent: 'center'}}
-            show={this.state.showAlert}
-            showProgress={this.state.showProgress}
-            title={this.state.title}
-            message={this.state.message}
-            confirmText={this.state.confirmText}
-            showConfirmButton={this.state.showConfirmButton}
-            closeOnTouchOutside={false}
-            confirmButtonColor="#e20021"
-            closeOnHardwareBackPress={false}
-            onCancelPressed={() => {
-                this.hideAlert();
-            }}
-            onConfirmPressed={() => {
-                this.hideAlert();
-            }}
-            overlayStyle={styles.alertOverlayStyle}
-            contentContainerStyle={styles.alertContentContainerStyle}
-          />
-        </View>
+            <AwesomeAlert
+                style={{alignItems: 'center',
+                justifyContent: 'center'}}
+                show={this.state.showAlert}
+                showProgress={this.state.showProgress}
+                title={this.state.title}
+                message={this.state.message}
+                confirmText={this.state.confirmText}
+                showConfirmButton={this.state.showConfirmButton}
+                closeOnTouchOutside={false}
+                confirmButtonColor="#e20021"
+                closeOnHardwareBackPress={false}
+                onCancelPressed={() => {
+                    this.hideAlert();
+                }}
+                onConfirmPressed={() => {
+                    this.hideAlert();
+                }}
+                overlayStyle={styles.alertOverlayStyle}
+                contentContainerStyle={styles.alertContentContainerStyle}
+            />
+            </View>
         </ScrollView> 
       );
     }
