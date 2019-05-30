@@ -1,14 +1,13 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, FlatList, ScrollView } from 'react-native';
-import DatePicker from 'react-native-datepicker'
+import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import styles from '../styles/styles.js';
 import { Database } from '../firebase.js';
-import { CardEcomOne, CardEcomThree, CardEcomFour, CardNine } from 'react-native-card-ui';
+import { CardEcomFour } from 'react-native-card-ui';
 
 const DELAY_TIME_OUT = 3000;
 
-class HomeScreen extends React.Component {
+class AddProducts extends React.Component {
     constructor() {
       super();
       this.state = {
@@ -135,6 +134,39 @@ class HomeScreen extends React.Component {
       return (
         <ScrollView>
         <View style={styles.containerForm}>
+          <Text style={styles.formTitle}>Add new product form</Text>
+          <TextInput 
+            style={styles.input} 
+            autoCapitalize="none"
+            onChangeText={productName => this.setState({ productName })}
+            onSubmitEditing={() => this.passwordInput.focus()} 
+            autoCorrect={false} 
+            keyboardType='default'
+            returnKeyType='next'
+            placeholder='Product name'
+            placeholderTextColor='#8d8d8d'
+          />
+        
+          <TextInput
+            style={styles.input}
+            onChangeText={productPrice => this.setState({ productPrice })}
+            ref={(input)=> this.passwordInput = input} 
+            returnKeyType='go'
+            keyboardType='default'
+            placeholder='Price' 
+            placeholderTextColor='#8d8d8d' 
+          />
+
+          <TextInput
+            style={styles.input}
+            onChangeText={barCode => this.setState({ barCode })}
+            ref={(input)=> this.passwordInput = input} 
+            returnKeyType='go'
+            keyboardType='default'
+            placeholder='Barcode' 
+            placeholderTextColor='#8d8d8d' 
+          />
+
           {/* <DatePicker
             style={styles.datePicker}
             date={this.state.date}
@@ -159,11 +191,20 @@ class HomeScreen extends React.Component {
             }}
             onDateChange={(date) => {this.setState({date: date})}}
           /> */}
+
+          <TouchableOpacity 
+            style={styles.buttonContainer}
+            onPress={this.handleSubmit}
+            disabled={this.state.isLoginDisabled}
+          >
+            <Text
+              style={styles.buttonText} 
+            >
+              ADD NEW PRODUCT
+            </Text>
+          </TouchableOpacity>
        
-          <FlatList
-            data={this.state.products}
-            renderItem={({item}) => this.renderCard(item)}
-          />
+          
 
           <AwesomeAlert
             style={{alignItems: 'center',
@@ -192,4 +233,4 @@ class HomeScreen extends React.Component {
     }
   }
 
-export default HomeScreen;
+export default AddProducts;
