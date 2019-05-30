@@ -4,7 +4,7 @@ import DatePicker from 'react-native-datepicker'
 import AwesomeAlert from 'react-native-awesome-alerts';
 import styles from '../styles/styles.js';
 import { Database } from '../firebase.js';
-import { CardEcomOne, CardEcomThree, CardEcomFour, CardNine } from 'react-native-card-ui';
+import { CardEcomOne, CardEcomTwo, CardEcomFour, CardNine } from 'react-native-card-ui';
 
 const DELAY_TIME_OUT = 3000;
 
@@ -57,6 +57,8 @@ class HomeScreen extends React.Component {
       this.showAlert = this.showAlert.bind(this);
       this.hideAlert = this.hideAlert.bind(this);
       this.addToCart =  this.addToCart.bind(this);
+      this.renderCartItem =  this.renderCartItem.bind(this);
+      this.buyCartNow = this.buyCartNow.bind(this);
     }
 
     clearState() {
@@ -145,7 +147,7 @@ class HomeScreen extends React.Component {
 
     renderCartItem(item){
       return(
-        <CardNine
+        <CardEcomTwo
             title={item.name}
             subTitle={item.description}
             price={item.price}
@@ -155,6 +157,12 @@ class HomeScreen extends React.Component {
             onClickButton={() => this.addToCart(item)}
           />
       );
+    }
+
+    buyCartNow() {
+      this.setState({
+        userCart: []
+      })
     }
 
     render() {
@@ -192,16 +200,28 @@ class HomeScreen extends React.Component {
             renderItem={({item}) => this.renderCard(item)}
           />
 
-          <Text>
+          <Text style={{fontSize: 30, marginTop: 10 }}>
             My cart
           </Text>
 
           <FlatList
-            keyExtractor={(item) => item.id}
-            extraData={this.state}
-            data={this.state.userCart}
-            renderItem={({item}) => <Text> Hello </Text>}
+              keyExtractor={(item) => item.id}
+              extraData={this.state}
+              data={this.state.userCart}
+              renderItem={({item}) => this.renderCartItem(item)}
           />
+
+          <TouchableOpacity 
+            style={styles.buttonContainer}
+            onPress={this.buyCartNow}
+            disabled={this.state.isLoginDisabled}
+          >
+            <Text
+              style={styles.buttonText} 
+            >
+              BUY CART NOW
+            </Text>
+          </TouchableOpacity>
 
           <AwesomeAlert
             style={{alignItems: 'center',
