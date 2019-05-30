@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, FlatList, ScrollView } from 'r
 import DatePicker from 'react-native-datepicker'
 import AwesomeAlert from 'react-native-awesome-alerts';
 import styles from '../styles/styles.js';
-import { Database } from '../firebase.js';
+import { Database, Firebase } from '../firebase.js';
 import { CardEcomOne, CardEcomTwo, CardEcomFour, CardNine } from 'react-native-card-ui';
 
 const DELAY_TIME_OUT = 3000;
@@ -116,7 +116,6 @@ class HomeScreen extends React.Component {
     }
 
     addToCart(item) {
-      // console.log('addToCart item', item);
       const newCart = this.state.userCart
       newCart.push(item);
       this.setState({
@@ -159,10 +158,37 @@ class HomeScreen extends React.Component {
       );
     }
 
-    buyCartNow() {
+    async buyCartNow() {
       this.setState({
         userCart: []
+      });
+      console.log('Firebase.auth().currentUser.uid', );
+      const client_id = Firebase.auth().currentUser.uid;
+      await Database.collection("purchases").add({
+        items: this.state.userCart,
+        create_at: new Date(),
+        client_id: Firebase.auth().currentUser.uid
       })
+      .then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+      });
+
+      const oldPurchases = await Database.collection("purchases").where("client_id", "==", client_id)
+      .get()
+      .then(function(querySnapshot) {
+        const array = [];
+        querySnapshot.forEach(function(doc) {
+          array.push(doc.data())
+        });
+        return array;
+      })
+      .catch(function(error) {
+        console.log("Error getting documents: ", error);
+      });
+      console.log('Firebase oldPurchases', oldPurchases);
     }
 
     render() {
