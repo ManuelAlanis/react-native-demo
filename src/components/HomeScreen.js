@@ -8,6 +8,7 @@ import { CardEcomOne, CardEcomThree, CardEcomFour, CardNine } from 'react-native
 
 const DELAY_TIME_OUT = 3000;
 
+
 class HomeScreen extends React.Component {
     constructor() {
       super();
@@ -20,12 +21,15 @@ class HomeScreen extends React.Component {
         isLoginDisabled: false,
         productName: '',
         productPrice: '',
-        barCode: '',
-        products: {}
+        barCode: '234234',
+        products: {},
+        userCart: []
       }
       this.initBinds();
+      let userCart = [];
     }
 
+    
     componentDidMount(){ 
       this.getProducts();
     }
@@ -109,7 +113,15 @@ class HomeScreen extends React.Component {
         });
     }
 
-    addToCart() {
+    addToCart(item) {
+      // console.log('addToCart item', item);
+      const newCart = this.state.userCart
+      newCart.push(item);
+      this.setState({
+        userCart: newCart
+      });
+
+      console.log('addToCart this.state.userCart', this.state.userCart);
       this.showAlert(null, true, 'Wait',
       'Adding to cart...', 'OK', false);
       setTimeout(() => {
@@ -126,12 +138,27 @@ class HomeScreen extends React.Component {
             image={{uri:"https://st.depositphotos.com/1796303/4940/i/950/depositphotos_49400471-stock-photo-woolen-sweater-black-background.jpg"}}
             buttonText={"ADD TO CART"}
             buttonColor={"#4383FF"}
-            onClickButton={() => this.addToCart()}
+            onClickButton={() => this.addToCart(item)}
+          />
+      );
+    }
+
+    renderCartItem(item){
+      return(
+        <CardNine
+            title={item.name}
+            subTitle={item.description}
+            price={item.price}
+            image={{uri:"https://st.depositphotos.com/1796303/4940/i/950/depositphotos_49400471-stock-photo-woolen-sweater-black-background.jpg"}}
+            buttonText={"ADD TO CART"}
+            buttonColor={"#4383FF"}
+            onClickButton={() => this.addToCart(item)}
           />
       );
     }
 
     render() {
+      // const { userCart } = this.state
       return (
         <ScrollView>
         <View style={styles.containerForm}>
@@ -163,6 +190,17 @@ class HomeScreen extends React.Component {
           <FlatList
             data={this.state.products}
             renderItem={({item}) => this.renderCard(item)}
+          />
+
+          <Text>
+            My cart
+          </Text>
+
+          <FlatList
+            keyExtractor={(item) => item.id}
+            extraData={this.state}
+            data={this.state.userCart}
+            renderItem={({item}) => <Text> Hello </Text>}
           />
 
           <AwesomeAlert

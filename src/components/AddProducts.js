@@ -19,7 +19,8 @@ class AddProducts extends React.Component {
         isLoginDisabled: false,
         productName: '',
         productPrice: '',
-        barCode: '',
+        barCode: '12342342',
+        productDescription: '',
         products: {}
       }
       this.initBinds();
@@ -67,6 +68,7 @@ class AddProducts extends React.Component {
           name: this.state.productName,
           price: this.state.productPrice,
           barCode: this.state.barCode,
+          description: this.state.productDescription,
           create_at: new Date()
       })
       .then(function(docRef) {
@@ -150,6 +152,16 @@ class AddProducts extends React.Component {
           <TextInput
             style={styles.input}
             onChangeText={productPrice => this.setState({ productPrice })}
+            ref={(input)=> this.passwordInput = input} 
+            returnKeyType='go'
+            keyboardType='default'
+            placeholder='Price' 
+            placeholderTextColor='#8d8d8d' 
+          />
+
+          <TextInput
+            style={styles.input}
+            onChangeText={productDescription => this.setState({ productDescription })}
             ref={(input)=> this.passwordInput = input} 
             returnKeyType='go'
             keyboardType='default'
