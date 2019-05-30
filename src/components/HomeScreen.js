@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, FlatList, ScrollView } from 'react-native';
 import DatePicker from 'react-native-datepicker'
 import AwesomeAlert from 'react-native-awesome-alerts';
 import styles from '../styles/styles.js';
 import { Database } from '../firebase.js';
+import { CardEcomOne, CardEcomThree, CardEcomFour, CardNine } from 'react-native-card-ui';
 
 const DELAY_TIME_OUT = 3000;
 
@@ -107,8 +108,23 @@ class HomeScreen extends React.Component {
         });
     }
 
+    renderCard(){
+      return(
+        <CardEcomFour
+            title={"Porsche Rubber"}
+            subTitle={"Zermatt is famed as a mounering and ski destome banmdo liono"}
+            price={"$200"}
+            image={{uri:"https://st.depositphotos.com/1796303/4940/i/950/depositphotos_49400471-stock-photo-woolen-sweater-black-background.jpg"}}
+            buttonText={"ADD TO CART"}
+            buttonColor={"#4383FF"}
+            onClickButton={() => alert("Has clicked")}
+          />
+      );
+    }
+
     render() {
       return (
+        <ScrollView>
         <View style={styles.containerForm}>
           <Text style={styles.formTitle}>Demo form</Text>
           <TextInput 
@@ -180,9 +196,28 @@ class HomeScreen extends React.Component {
             </Text>
           </TouchableOpacity>
 
+          <View>
+ 
+          {/* <CardNine
+            title={"Crazy House"}
+            subTitle={
+              "Lorem ipsum dolor sit amet, consectetuer adipiscin elit, sed diam nonummy nibh euismod"
+            }
+            image={{
+              uri:
+                "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
+            }}
+            price={33.5}
+            onClicked={() => {
+              alert("Hello!");
+            }}
+          /> */}
+            
+          </View>
+        
           <FlatList
             data={this.state.products}
-            renderItem={({item}) => <Text>{item.name}</Text>}
+            renderItem={({item}) => this.renderCard()}
           />
 
           <AwesomeAlert
@@ -205,6 +240,7 @@ class HomeScreen extends React.Component {
             contentContainerStyle={styles.alertContentContainerStyle}
           />
         </View>
+        </ScrollView> 
       );
     }
   }
