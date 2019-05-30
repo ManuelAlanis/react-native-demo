@@ -58,7 +58,6 @@ class Purchases extends React.Component {
     }
 
     initBinds(){
-      this.handleSubmit = this.handleSubmit.bind(this);
       this.showAlert = this.showAlert.bind(this);
       this.hideAlert = this.hideAlert.bind(this);
       this.addToCart =  this.addToCart.bind(this);
@@ -71,27 +70,6 @@ class Purchases extends React.Component {
         productPrice: '',
         barCode: ''
       });
-    }
-
-    async handleSubmit() {
-      await Database.collection("products").add({
-          name: this.state.productName,
-          price: this.state.productPrice,
-          barCode: this.state.barCode,
-          create_at: new Date()
-      })
-      .then(function(docRef) {
-          console.log("Document written with ID: ", docRef.id);
-      })
-      .catch(function(error) {
-          console.error("Error adding document: ", error);
-      });
-      this.clearState();
-      this.showAlert(null, true, 'Wait',
-      'Adding this product to catalog', 'OK', false);
-      setTimeout(() => {
-        this.hideAlert();
-      }, DELAY_TIME_OUT)
     }
 
     showAlert(callback, showProgress, title, message, confirmText, showConfirmButton) {
@@ -154,8 +132,8 @@ class Purchases extends React.Component {
         this.setState({refreshing: true});
         await this.getProducts();
         this.setState({refreshing: false});
-    }    
-
+    }
+    
     render() {
       return (
         <ScrollView

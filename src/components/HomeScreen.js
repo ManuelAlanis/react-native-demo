@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, FlatList, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, FlatList, ScrollView, RefreshControl } from 'react-native';
 import DatePicker from 'react-native-datepicker'
 import AwesomeAlert from 'react-native-awesome-alerts';
 import styles from '../styles/styles.js';
@@ -59,6 +59,13 @@ class HomeScreen extends React.Component {
       this.addToCart =  this.addToCart.bind(this);
       this.renderCartItem =  this.renderCartItem.bind(this);
       this.buyCartNow = this.buyCartNow.bind(this);
+      this.onRefresh = this.onRefresh.bind(this);
+    }
+
+    async onRefresh() {
+      this.setState({refreshing: true});
+      await this.getProducts();
+      this.setState({refreshing: false});
     }
 
     clearState() {
@@ -179,33 +186,15 @@ class HomeScreen extends React.Component {
     render() {
       // const { userCart } = this.state
       return (
-        <ScrollView>
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this.onRefresh}/>
+          }
+        >
         <View style={styles.containerForm}>
-          {/* <DatePicker
-            style={styles.datePicker}
-            date={this.state.date}
-            mode="date"
-            placeholder="select date"
-            format="YYYY-MM-DD"
-            minDate="2016-05-01"
-            maxDate="2016-06-01"
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            androidMode='default'
-            customStyles={{
-              dateIcon: {
-                position: 'absolute',
-                left: 0,
-                top: 4,
-                marginLeft: 0,
-              },
-              dateInput: {
-                marginLeft: 36
-              }
-            }}
-            onDateChange={(date) => {this.setState({date: date})}}
-          /> */}
-       
+
           <FlatList
             data={this.state.products}
             renderItem={({item}) => this.renderCard(item)}
