@@ -1,5 +1,9 @@
 # react-native-demo
 
+Manuel Antonio Alanis Carrillo
+alanism@uabc.edu.mx
+matricula: 1208658
+
 To run the application firts run: 
 
 ```bash 
