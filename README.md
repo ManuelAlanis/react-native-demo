@@ -6,6 +6,10 @@ To run the application firts run:
 $ npm install
 ``` 
 
+With 'Android Studio' just open the android folder's.
+
+And run the `Sync Project with Grade files` icon
+
 make sync on android studio and run: 
 
 ```bash 
