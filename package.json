@@ -9,7 +9,7 @@
   "dependencies": {
     "firebase": "^5.9.2",
     "react": "16.6.3",
-    "react-native": "^0.59.3",
+    "react-native": "^0.62.3",
     "react-native-awesome-alerts": "^1.2.0",
     "react-native-card-ui": "^1.1.1",
     "react-native-datepicker": "^1.7.2",
